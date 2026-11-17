@@ -81,6 +81,10 @@ jobs:
         run: |
           ninja -C build_$BIT update
           bash .github/pt/pin_sources.sh $PWD/src_packages "$PIN_DATE" mpv
+          # ANGLE removed the D3D9 EGL enums on 2026-07-06 (c1f9769be2c2); mpv ad59ff1 still uses them and the
+          # upstream 20260811 build had older ANGLE headers (stale cached checkout) -> use the commit before that removal.
+          git -C src_packages/angle-headers reset --hard -q 0cb8023c01f92b29f3738ea7472d06f8f059ed84
+          echo "PIN fixed  angle-headers $(git -C src_packages/angle-headers rev-parse --short=12 HEAD)"
           ninja -C build_$BIT mpv
 
       - name: Packaging mpv
