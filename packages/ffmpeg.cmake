@@ -266,6 +266,8 @@ ExternalProject_Add(ffmpeg
 
         --enable-filter=overlay
         --enable-filter=equalizer
+        --enable-filter=acompressor
+        --enable-filter=alimiter
 
         --enable-protocol=async
         --enable-protocol=cache
